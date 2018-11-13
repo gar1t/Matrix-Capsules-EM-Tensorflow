@@ -1,3 +1,16 @@
+- config: dataset-flag
+  flags:
+    dataset:
+      description: Dataset used to train or evaluate
+      default: smallNORB
+      required: yes
+      choices:
+        - mnist
+        - smallNORB
+        - fashion_mnist
+        #- cifar10
+        #- cifar100
+
 - config: model-base
   operations:
     prepare-norb:
@@ -6,25 +19,39 @@
       description: Train a dataset using {{model-desc}}
       main: '{{train-main}} ${dataset}'
       flags:
-        dataset:
-          description: Dataset used to train
-          required: yes
-          choices:
-            - mnist
-            - smallNORB
-            - fashion_mnist
-            #- cifar10
-            #- cifar100
-        batch-size:
+        $include:
+          - dataset-flag
+        batch_size:
           description: Training batch size
           default: 50
-          arg-name: batch_size
         epochs:
           description: Number of epochs to train
-          default: 5
+          default: 50
           arg-name: epoch
+        A:
+          description: Number of channels in output from ReLU Conv1
+          default: 32
+        B:
+          description: Number of capsules in output from PrimaryCaps
+          default: 8
+        C:
+          description: Numbrer of channels in output from ConvCaps1
+          default: 16
+        D:
+          description: Number of channels in output from ConvCaps2
+          default: 16
       requires: ${dataset}-data
       label: ${dataset}
+    evaluate:
+      description: Evaluate a trained model
+      main: eval_accuracy ${dataset} {{model-name}}
+      flags:
+        $include:
+          - dataset-flag
+      requires:
+        - ${dataset}-data
+        - trained-model
+      label: ${dataset} model=${trained-model}
   resources:
     mnist-data:
       path: mnist
@@ -58,22 +85,30 @@
       path: data
       sources:
         - operation: small-norb:prepare
+    trained-model:
+      sources:
+        - operation: train
+          select: logdir
   extra:
-    scalar-aliases:
-      loss: .*/all_loss
+    scalars:
       step: .*/all_loss_step
+      loss: .*/all_loss
+      val_acc: .*/accuracy
 
 - model: baseline
   description: Baseline CNN
   extends: model-base
   params:
+    model-name: cnn_baseline
     train-main: train_baseline
     model-desc: baseline CNN
 
 - model: capsnet
   description: CapsNet model
   extends: model-base
+  default: yes
   params:
+    model-name: caps
     train-main: train
     model-desc: CapsNet
 
