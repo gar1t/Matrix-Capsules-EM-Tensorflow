@@ -59,27 +59,9 @@
       sources:
         - operation: small-norb:prepare
   extra:
-    scalar_map:
-      logdir/cnn_baseline/mnist/train_log/all_loss: loss
-      logdir/cnn_baseline/mnist/train_log/all_loss_step: step
-      logdir/cnn_baseline/fashion_mnist/train_log/all_loss: loss
-      logdir/cnn_baseline/fashion_mnist/train_log/all_loss_step: step
-      logdir/cnn_baseline/cifar10/train_log/all_loss: loss
-      logdir/cnn_baseline/cifar10/train_log/all_loss_step: step
-      logdir/cnn_baseline/cifar100/train_log/all_loss: loss
-      logdir/cnn_baseline/cifar100/train_log/all_loss_step: step
-      logdir/cnn_baseline/smallNORB/train_log/all_loss: loss
-      logdir/cnn_baseline/smallNORB/train_log/all_loss_step: step
-      logdir/caps/mnist/train_log/all_loss: loss
-      logdir/caps/mnist/train_log/all_loss_step: step
-      logdir/caps/fashion_mnist/train_log/all_loss: loss
-      logdir/caps/fashion_mnist/train_log/all_loss_step: step
-      logdir/caps/cifar10/train_log/all_loss: loss
-      logdir/caps/cifar10/train_log/all_loss_step: step
-      logdir/caps/cifar100/train_log/all_loss: loss
-      logdir/caps/cifar100/train_log/all_loss_step: step
-      logdir/caps/smallNORB/train_log/all_loss: loss
-      logdir/caps/smallNORB/train_log/all_loss_step: step
+    scalar-aliases:
+      loss: .*/all_loss
+      step: .*/all_loss_step
 
 - model: baseline
   description: Baseline CNN
