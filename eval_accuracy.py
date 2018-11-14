@@ -10,6 +10,7 @@ import time
 import os
 import capsnet_em as net
 import tensorflow.contrib.slim as slim
+from tensorflow.core.framework import summary_pb2
 
 import logging
 import daiquiri
@@ -90,6 +91,12 @@ def main(args):
 
                 ave_acc = accuracy_sum / num_batches_test
                 print('the average accuracy is %f' % ave_acc)
+
+                value = summary_pb2.Summary.Value(
+                    tag="average_accuracy",
+                    simple_value=ave_acc)
+                summary = summary_pb2.Summary(value=[value])
+                summary_writer.add_summary(summary, step - 1)
 
             coord.request_stop()
             coord.join(threads)
