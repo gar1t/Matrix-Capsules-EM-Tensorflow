@@ -33,7 +33,7 @@
           description: Number of capsules in output from PrimaryCaps
           default: 8
         C:
-          description: Numbrer of channels in output from ConvCaps1
+          description: Number of channels in output from ConvCaps1
           default: 16
         D:
           description: Number of channels in output from ConvCaps2

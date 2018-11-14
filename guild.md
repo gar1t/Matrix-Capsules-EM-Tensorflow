@@ -230,9 +230,10 @@ Guild does not open TensorBoard in your browser when run on a remote
 server. You must open the link that Guild displays in the command
 prompt manually.
 
-### Test CapsNet
+### Evaluate CapsNet
 
-You can test CapsNet either while it is learning or after.
+You can test CapsNet either while it is learning or after the train
+operation finishes.
 
 In either case, run:
 
@@ -240,6 +241,105 @@ In either case, run:
 guild run capsnet:evaluate dataset=smallNORB
 ```
 
+The `evaluate` operation calculates model accuracy using the test
+examples associated with the specified dataset.
+
+If you are viewing project runs in TensorFlow, the test accuracy is
+displayed as `average_accuracy` for the applicable training epoch.
+
 ## CapsNet vs baseline CNN
 
+You can use Guild to compare performance between CapsNet and the
+baseline CNN.
+
+If you haven't already trained and evaluated a CapsNet model, follow
+the steps in [Results on smallNORB](#results-on-smallnorb) before
+completing the steps below.
+
+### Train baseline CNN
+
+Train the baseline model on smallNORB by running:
+
+``` bash
+guild run baseline:train dataset=smallNORB
+```
+
+Guild shows the default flags, which are the same default values used
+for `capsnet:train`. To accept the defaults, press `Enter`.
+
+**NOTE** If you trained CapsNet in the previous section, use the same
+flag values when training the baseline CNN.
+
+### Evaluate baseline CNN
+
+Evaluate the baseline CNN by running:
+
+``` bash
+guild run baseline:evaluate dataset=smallNORB
+```
+
+### Compare CapsNet and baseline CNN
+
+With CapsNet and baseline CNN trained and tested, use Guild Compare to
+compare accuracy and loss.
+
+``` bash
+guild compare
+```
+
+This command launches a program that lets you browse runs and their
+results.
+
+When you're finished comparing, press `q` to exit the program.
+
+Next, use TensorBoard to compare runs:
+
+``` bash
+guild tensorboard
+```
+
+Expand the **accuracy** or **average_accuracy** scalars to compare
+model accuracy.
+
+**NOTE** TensorBoard may take a minute or two to load all of the data
+available. If you don't see all of the data you expect, wait a few
+minutes. TensorBoard automatically refreshes when new data is loaded.
+
+![](img/caps_vs_baseline_accuracy.png)
+
 ## Experiment with parameters
+
+Experiment with different parameters for `train` operations.
+
+To get project help, including available models, operations and flags,
+run:
+
+``` bash
+guild help
+```
+
+Flags are set for an operation in the form `NAME=VALUE`. For example,
+the following trains capsnet with a batch size of 32:
+
+``` command
+guild run train batch_size=32
+```
+
+### Datasets
+
+In addition to smallNORB, which is the default dataset used in train
+operations, the following additional datasets are supported:
+
+- `mnist`
+- `fashion_mnist`
+- `cifar10` (TODO)
+- `cifar100` (TODO)
+
+### Structure parameters
+
+The following structure parameters are supported:
+
+- `A` - Number of channels in output from ReLU Conv1
+- `B` - Number of capsules in output from PrimaryCaps
+- `C` - Number of channels in output from ConvCaps1
+- `D` - Number of channels in output from ConvCaps2
