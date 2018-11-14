@@ -4,19 +4,16 @@ You can use Guild AI with this project to reproduce and compare
 results.
 
 - Automate model operations
-- Automatically capture run results
+- Capture run results
 - Compare loss and test accuray
 - View run logs with TensorBoard
-
-You can also use Guild AI to run model operations on EC2 GPUs to
-accelerate training.
 
 Contents:
 
 - [Setup](#setup)
 - [Review project](#review-project)
 - [Results on smallNORB](#results-on-smallnorb)
-- [CapsNet vs baseline CNN](#capsnet-vs-baseline)
+- [CapsNet vs baseline CNN](#capsnet-vs-baseline-cnn)
 - [Experiment with parameters](#experiment-with-parameters)
 
 ## Setup
@@ -26,7 +23,7 @@ Contents:
 Install Guild AI using pip:
 
 ``` bash
-pip install guildai
+pip install guildai --pre --upgrade
 ```
 
 ### Clone project
@@ -54,7 +51,7 @@ Python 3. It also installs TensorFlow and the packages listed in
 
 ### Activate environment
 
-Before running Guild commands in an environment, you must actiate it
+Before running Guild commands in an environment, activate it
 using the `source` command:
 
 ``` bash
@@ -80,7 +77,7 @@ information by using the `--verbose` option:
 guild check --verbose
 ```
 
-and open an issue on the [Guild AI issue
+To get help, open an issue on the [Guild AI issue
 tracker](https://github.com/guildai/guildai/issues).
 
 ## Review project
@@ -305,7 +302,7 @@ model accuracy.
 available. If you don't see all of the data you expect, wait a few
 minutes. TensorBoard automatically refreshes when new data is loaded.
 
-![](img/caps_vs_baseline_accuracy.png)
+![](imgs/capsnet_vs_baseline_accuracy.png)
 
 ## Experiment with parameters
 
