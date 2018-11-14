@@ -13,10 +13,8 @@
 
 - config: model-base
   operations:
-    prepare-norb:
-      description: Prepare small NORB dataset for training
     train:
-      description: Train a dataset using {{model-desc}}
+      description: Train {{model-desc}}
       main: '{{train-main}} ${dataset}'
       flags:
         $include:
@@ -43,7 +41,7 @@
       requires: ${dataset}-data
       label: ${dataset}
     evaluate:
-      description: Evaluate a trained model
+      description: Evaluate trained {{model-desc}}
       main: eval_accuracy ${dataset} {{model-name}}
       flags:
         $include:
