@@ -93,7 +93,7 @@
     scalars:
       step: .*/all_loss_step
       loss: .*/all_loss
-      val_acc: .*/accuracy
+      val_acc: .*/average_accuracy
 
 - model: baseline
   description: Baseline CNN
