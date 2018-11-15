@@ -23,8 +23,12 @@ Contents:
 Install Guild AI using pip:
 
 ``` bash
-pip install guildai --pre --upgrade
+pip install guildai
 ```
+
+**NOTE** &nbsp; You may need to use `sudo pip install guildai` to
+install Guild AI at the system level. Alternatively, use
+`pip install guildai --user` to install it to your user directory.
 
 ### Clone project
 
@@ -169,11 +173,11 @@ To train over 5 epochs instead of the 50 (the default), run:
 guild run capsnet:train epochs=5 dataset=smallNOBR
 ```
 
-**NOTE** The project's default model is `capset` and the default value
+**NOTE** &nbsp; The project's default model is `capset` and the default value
 for `dataset` is `smallNORB`. This means you can train CapsNet on
 smallNORB by simply running `guild run train`.
 
-**NOTE** The default number of epochs is 50, which reproduces the
+**NOTE** &nbsp; The default number of epochs is 50, which reproduces the
 results in README.md. However, training over 50 epochs even on a fast
 GPU can take over several hours. If you want to train quickly, use a
 smaller number of epochs. Your results in this case, however, will not
@@ -191,7 +195,7 @@ cd Matrix-Capsules-EM-Tensorflow
 source guild-init
 ```
 
-**NOTE** The above command must be run in a second command console if
+**NOTE** &nbsp; The above command must be run in a second command console if
 the train operation is running.
 
 Verify that you can see the active operation by listing runs:
@@ -216,7 +220,7 @@ This start TensorBoard on an available port and opens it in your
 browser. Guild monitors project runs and updates TensorBoard
 automatically. You can leave TensorBoard running while CapsNet trains.
 
-**NOTE** If you are training on a remote server, you may want to
+**NOTE** &nbsp; If you are training on a remote server, you may want to
 specify the port that TensorBoard listens to. In this case, run:
 
 ``` bash
@@ -264,7 +268,7 @@ guild run baseline:train dataset=smallNORB
 Guild shows the default flags, which are the same default values used
 for `capsnet:train`. To accept the defaults, press `Enter`.
 
-**NOTE** If you trained CapsNet in the previous section, use the same
+**NOTE** &nbsp; If you trained CapsNet in the previous section, use the same
 flag values when training the baseline CNN.
 
 ### Evaluate baseline CNN
@@ -298,7 +302,7 @@ guild tensorboard
 Expand the **accuracy** or **average_accuracy** scalars to compare
 model accuracy.
 
-**NOTE** TensorBoard may take a minute or two to load all of the data
+**NOTE** &nbsp; TensorBoard may take a minute or two to load all of the data
 available. If you don't see all of the data you expect, wait a few
 minutes. TensorBoard automatically refreshes when new data is loaded.
 
