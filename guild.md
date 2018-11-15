@@ -398,7 +398,8 @@ results.
 
 When you're finished comparing, press `q` to exit the program.
 
-Next, use TensorBoard to compare runs:
+If TensorBoard is not already running (e.g. from [View training in
+TensorBoard](#view-training-in-tensorboard) above) start it now:
 
 ``` bash
 $ guild tensorboard
@@ -449,3 +450,21 @@ The following structure parameters are supported:
 - `B` - Number of capsules in output from PrimaryCaps
 - `C` - Number of channels in output from ConvCaps1
 - `D` - Number of channels in output from ConvCaps2
+
+### Hyperparameters
+
+You can specify any of the hyper parameters defined in
+[config.py](config.py) provided you also include the `-f` option
+(short for `--force-flags`).
+
+For example, to set `m_plus` to `0.8` and and `m_minus` to `0.2` when
+training CapsNet, use:
+
+``` bash
+$ guild run capsnet:train -f m_plus=0.8 m_minus=0.2
+```
+
+Note the use of `-f` in the command. If you omit this option, Guild
+will exit with the error: `unsupported flag 'm_plus'`.
+
+TODO: define hyperparams in guild.yml
