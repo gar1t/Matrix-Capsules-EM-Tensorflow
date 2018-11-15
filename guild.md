@@ -370,18 +370,24 @@ for `capsnet:train`. To accept the defaults, press `Enter`.
 **NOTE** &nbsp; If you trained CapsNet in the previous section, use the same
 flag values when training the baseline CNN.
 
+This starts a new run, which tracks the results of the baseline CNN
+training, including saved checkpoints.
+
 ### Evaluate baseline CNN
 
-Evaluate the baseline CNN by running:
+When the baseline CNN is trained, evaluate it by running:
 
 ``` bash
 guild run baseline:evaluate dataset=smallNORB
 ```
 
+As with `capsnet:evaluate`, this operation captures model accuracy,
+this time for the baseline CNN.
+
 ### Compare CapsNet and baseline CNN
 
-With CapsNet and baseline CNN trained and tested, use Guild Compare to
-compare accuracy and loss.
+With CapsNet and baseline CNN both trained and evaluated, use Guild
+Compare to compare accuracy and loss.
 
 ``` bash
 $ guild compare
