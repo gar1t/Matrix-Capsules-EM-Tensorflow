@@ -23,19 +23,19 @@ Contents:
 Install Guild AI using pip:
 
 ``` bash
-pip install guildai
+$ pip install guildai
 ```
 
 **NOTE** &nbsp; You may need to use `sudo pip install guildai` to
-install Guild AI at the system level. Alternatively, use
-`pip install guildai --user` to install it to your user directory.
+install Guild AI at the system level. Alternatively, use `pip install
+guildai --user` to install it to your user directory.
 
 ### Clone project
 
 If you haven't already cloned the project repository, run:
 
 ``` bash
-git clone https://github.com/www0wwwjs1/Matrix-Capsules-EM-Tensorflow.git
+$ git clone https://github.com/gar1t/Matrix-Capsules-EM-Tensorflow.git
 ```
 
 ### Initialize environment
@@ -45,8 +45,8 @@ We recommend running Guild commands in a virtual environment.
 Initialize an environment from the project directory:
 
 ``` bash
-cd Matrix-Capsules-EM-Tensorflow
-guild init -p python3
+$ cd Matrix-Capsules-EM-Tensorflow
+$ guild init -p python3
 ```
 
 This creates an environment `env` in the current directory that uses
@@ -59,7 +59,7 @@ Before running Guild commands in an environment, activate it
 using the `source` command:
 
 ``` bash
-source guild-env
+$ source guild-env
 ```
 
 Note that the command prompt changes to include the environment name
@@ -68,17 +68,17 @@ to verify that your environment is activated.
 
 ### Check Guild
 
-Finally, check Guild by running:
+When an environment is activated, check the environment by running:
 
 ``` bash
-guild check
+$ guild check
 ```
 
 If you get errors and cannot resolve them, try getting more
 information by using the `--verbose` option:
 
 ``` bash
-guild check --verbose
+$ guild check --verbose
 ```
 
 To get help, open an issue on the [Guild AI issue
@@ -92,12 +92,12 @@ models, operations, and viewing project help.
 All of the project information displayed below is defined in
 [guild.yml](guild.yml).
 
-The steps below must be run from the project directory.
+**NOTE** &nbsp; The steps below must be run from the project directory.
 
 List project models:
 
 ``` bash
-guild models
+$ guild models
 ```
 
 Guild shows three models:
@@ -117,7 +117,7 @@ Each model supports one or more operations.
 List available operations:
 
 ``` bash
-guild ops
+$ guild ops
 ```
 
 Guild shows the available operations:
@@ -148,29 +148,70 @@ The steps below reproduce the results reported in [README.md](README.md).
 Ensure that you have followed the steps for [Setup](#setup) above
 before continuing.
 
-The steps below must be run from the project directory.
+**NOTE** &nbsp; The steps below must be run from the project
+directory.
+
+### Prepare smallNORB dataset
+
+Before training CapsNet on smallNORB, run the `small-norb:prepare`
+operation as follows:
+
+``` bash
+$ guild run small-norb:prepare
+```
+
+Press `Enter` to confirm and start the operation.
+
+Guild automatically downloads the required [smallNORB
+data](https://cs.nyu.edu/~ylclab/data/norb-v1.0-small/) and uses the
+[data/smallNORB](data/smallNORB.py) module to generate TF Records used
+for both training and test.
+
+Once the smallNORB dataset is prepared, it is used for `train` and
+`evaluate` operations whenever `dataset=smallNORB` is specified.
+
+Use `guild runs` to list available runs:
+
+``` bash
+$ guild runs
+```
+
+Guild shows the prepared dataset run (run ID and date will differ):
+
+```
+[1:4438aa1a]  ./small-norb:prepare  2018-11-15 07:06:29  completed
+```
+
+Use `guild ls` to list files associated with the latest run:
+
+``` bash
+$ guild ls
+```
 
 ### Train CapsNet on smallNORB
 
+To train the CapsNet model, run the `capsnet:train` operation as
+follows:
+
 ``` bash
-guild run capsnet:train dataset=smallNORB
+$ guild run capsnet:train dataset=smallNORB
 ```
 
-Review the flags for the operation and press `Enter` to confirm.
-
-If you want to change any flag values, press `n` and then `Enter` and
+Review the flags for the operation and press `Enter` to confirm. If
+you want to change any flag values, press `n` and then `Enter` and
 re-run the operation using the destired flags.
 
 For help with available flags, run:
 
 ``` bash
-guild run capsnet:train --help-op
+$ guild run capsnet:train --help-op
 ```
 
-To train over 5 epochs instead of the 50 (the default), run:
+Set flag values using the form `NAME=VALUE`. For example, to train
+over 5 epochs instead of the 50 (the default), run:
 
 ``` command
-guild run capsnet:train epochs=5 dataset=smallNOBR
+guild run capsnet:train epochs=5 dataset=smallNORB
 ```
 
 **NOTE** &nbsp; The project's default model is `capset` and the default value
@@ -191,8 +232,8 @@ While CapsNet is training, open a second command console and activate
 the environment:
 
 ``` bash
-cd Matrix-Capsules-EM-Tensorflow
-source guild-init
+$ cd Matrix-Capsules-EM-Tensorflow
+$ source guild-init
 ```
 
 **NOTE** &nbsp; The above command must be run in a second command console if
@@ -201,7 +242,7 @@ the train operation is running.
 Verify that you can see the active operation by listing runs:
 
 ``` bash
-guild runs
+$ guild runs
 ```
 
 You should see the active run (run ID and date will differ):
@@ -224,7 +265,7 @@ automatically. You can leave TensorBoard running while CapsNet trains.
 specify the port that TensorBoard listens to. In this case, run:
 
 ``` bash
-guild tensorboard --port PORT
+$ guild tensorboard --port PORT
 ```
 
 Guild does not open TensorBoard in your browser when run on a remote
@@ -239,7 +280,7 @@ operation finishes.
 In either case, run:
 
 ``` bash
-guild run capsnet:evaluate dataset=smallNORB
+$ guild run capsnet:evaluate dataset=smallNORB
 ```
 
 The `evaluate` operation calculates model accuracy using the test
@@ -262,7 +303,7 @@ completing the steps below.
 Train the baseline model on smallNORB by running:
 
 ``` bash
-guild run baseline:train dataset=smallNORB
+$ guild run baseline:train dataset=smallNORB
 ```
 
 Guild shows the default flags, which are the same default values used
@@ -285,7 +326,7 @@ With CapsNet and baseline CNN trained and tested, use Guild Compare to
 compare accuracy and loss.
 
 ``` bash
-guild compare
+$ guild compare
 ```
 
 This command launches a program that lets you browse runs and their
@@ -296,7 +337,7 @@ When you're finished comparing, press `q` to exit the program.
 Next, use TensorBoard to compare runs:
 
 ``` bash
-guild tensorboard
+$ guild tensorboard
 ```
 
 Expand the **accuracy** or **average_accuracy** scalars to compare
@@ -316,14 +357,14 @@ To get project help, including available models, operations and flags,
 run:
 
 ``` bash
-guild help
+$ guild help
 ```
 
 Flags are set for an operation in the form `NAME=VALUE`. For example,
 the following trains capsnet with a batch size of 32:
 
-``` command
-guild run train batch_size=32
+``` bash
+$ guild run train batch_size=32
 ```
 
 ### Datasets
